@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Entity
-@Table(name = "Cliente", schema = "schema1")
+@Table(name = "Cliente", schema = "client_schema")
 @Data
 @Slf4j
 public class Cliente {
@@ -25,7 +25,7 @@ public class Cliente {
     @JoinColumn(name = "persona_id", referencedColumnName = "id")
     private Persona persona;
 
-    private String contraseña;
+    private String contrasena;
     private boolean estado;
 
 }

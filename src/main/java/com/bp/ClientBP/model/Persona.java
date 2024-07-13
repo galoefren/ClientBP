@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Entity
-@Table(name = "Persona", schema = "schema1")
+@Table(name = "Persona", schema = "client_schema")
 @Data
 @Slf4j
 public class Persona {
