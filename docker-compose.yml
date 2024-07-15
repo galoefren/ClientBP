@@ -1,0 +1,6 @@
+services:
+  clientbp:
+    build: .
+    container_name: clientbp
+    ports:
+      - "8081:8081"
