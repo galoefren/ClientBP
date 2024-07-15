@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 public class KafkaConsumer {
 
     private static final String RESPONSE_TOPIC = "cliente_id_respuesta";
+    private static final String RESPONSE_TOPIC_NOMBRE = "cliente_id_nombre";
+
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -27,6 +29,18 @@ public class KafkaConsumer {
             kafkaTemplate.send(RESPONSE_TOPIC, cliente.getClienteid().toString());
         } else {
             kafkaTemplate.send(RESPONSE_TOPIC, "null");
+        }
+    }
+
+
+    @KafkaListener(topics = "buscar_cliente_nombre", groupId = "group_id")
+    public void consumeCliente(String message) {
+        // Buscar clienteId por numeroCedula
+        Cliente cliente = clienteRepository.findByPersonaIdentificacion(message);
+        if (cliente != null) {
+            kafkaTemplate.send(RESPONSE_TOPIC_NOMBRE, cliente.getClienteid().toString()+"_"+cliente.getPersona().getNombre());
+        } else {
+            kafkaTemplate.send(RESPONSE_TOPIC_NOMBRE, "null");
         }
     }
 }
